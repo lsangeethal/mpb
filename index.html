@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>Highlight countries in mapbox</title>
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css' rel='stylesheet' />
+  <style>
+    html,
+    body,
+    #map {
+      height: 100%;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id='map'></div>
+
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1Ijoic3VubnlzaWRlciIsImEiOiJja3Y2M3g0NWMxZ2c1MzBxcDdvZzg1Z2owIn0.-In7HE_mYxuq_wgMcAI3Vg';
+
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [5, 46],
+      zoom: 1
+    });
+
+
+
+
+
+    /////marker
+
+  let marker = new mapboxgl.Marker()
+  marker.setLngLat([-64.9672817,-34.9964963])
+  marker.addTo(map)
+
+
+  ///// popup
+
+
+  // let popup = new mapboxgl.Popup()
+  // popup.setHTML('This is the Center for Spatial Research')
+  // marker.setPopup(popup)
+
+
+
+  ///////////////////////////////////////// multiple markers
+  let data = [
+      {
+          location: [-7.092620, 31.791702],
+
+      },
+      {
+          location: [1.659626,28.033886],
+
+      },
+      {
+          location: [9.537499,33.886917],
+
+      },
+
+      {
+          location: [17.228331,26.335100],
+
+      },
+
+      {
+          location: [-9.2399263,20.2540382],
+
+      },
+
+      {
+          location: [29.2675469,26.2540493],
+
+      },
+
+      {
+          location: [39.0494106,34.6401861],
+
+      },
+
+      {
+          location: [44.1749775,33.0955793],
+
+      },
+
+
+      {
+          location: [-4.8379791,39.3260685],
+
+      },
+
+      {
+          location: [-7.8896263,40.0332629],
+
+      },
+
+
+      {
+          location: [1.8883335,46.603354],
+
+      },
+      {
+          location: [12.674297,42.6384261],
+
+      },
+      {
+          location: [17.5961467,44.3053476],
+
+      },
+      {
+          location: [21.9877132,38.9953683],
+
+      },
+
+      {
+          location: [34.9249653,38.9597594],
+
+      },
+      {
+          location: [19.9999619,41.000028],
+
+      },
+      {
+          location: [42.3528328,25.6242618],
+
+      },
+      {
+          location: [57.0036901,21.0000287],
+
+      },
+      {
+          location: [53.9994829,24.0002488],
+
+      },
+      {
+          location: [47.7872508,40.3936294],
+
+      },
+      {
+          location: [54.5643516,32.6475314],
+
+      },
+      {
+          location: [71.247499,30.3308401],
+
+      },
+      {
+          location: [25.9209164,63.2467777],
+
+      },
+      {
+          location: [139.2394179,36.5748441],
+
+      },
+      {
+          location: [127.6961188,36.638392],
+
+      },
+      {
+          location: [120.9820179,23.9739374],
+
+      },
+      {
+          location: [104.999927,35.000074],
+
+      },
+      {
+          location: [117.8902853,-2.4833826],
+
+      },
+      {
+          location: [102.2656823,4.5693754],
+
+      },
+
+      {
+          location: [100.83273,14.8971921],
+
+      },
+
+      {
+          location: [25.3319078,58.7523778],
+
+      },
+
+      {
+          location: [80.7137847,7.5554942],
+          
+      },
+
+
+
+
+      ]
+
+      data.forEach(function(d) {
+
+      let marker = new mapboxgl.Marker()
+      marker.setLngLat(d.location)
+      marker.addTo(map)
+
+      let popup = new mapboxgl.Popup()
+      popup.setHTML(d.content)
+      marker.setPopup(popup)
+
+  })
+
+
+
+
+
+    map.on('load', function() {
+      map.addLayer(
+        {
+          id: 'country-boundaries',
+          source: {
+            type: 'vector',
+            url: 'mapbox://mapbox.country-boundaries-v1',
+          },
+          'source-layer': 'country_boundaries',
+          type: 'fill',
+          paint: {
+            'fill-color': '#d2361e',
+            'fill-opacity': 0.7,
+          },
+        },
+        'country-label'
+      );
+
+      map.setFilter('country-boundaries', [
+
+        "in",
+        "iso_3166_1_alpha_3",
+        'NLD',
+        'POL',
+        'USA',
+        'CAN',
+        'BRA',
+        'COL',
+        'PER',
+     'BOL',
+      'VEN',
+ 'URY',
+  'FIN',
+    'NOR',
+        'CZE',
+          'HUN',
+            'SVK',
+            'CHE',
+                'SVN',
+                    'ZAF',
+  'SJM',
+  'HRV',
+
+      ] );
+    });
+  </script>
+
+</body>
+</html>
